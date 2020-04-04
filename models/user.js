@@ -22,6 +22,11 @@ module.exports = (sequelize, DataTypes) => {
       as: "comments",
       onDelete: "CASCADE",
     });
+    User.belongsToMany(models.WorkingDay, {
+      through: "UsersWorkingDays",
+      foreignKey: "userId",
+      as: "days",
+    });
   };
   return User;
 };

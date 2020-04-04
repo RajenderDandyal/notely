@@ -67,7 +67,7 @@ module.exports = {
         description: req.body.description,
         userId: req.body.userId,
       };
-      let post = await db.Post.findAll({ include: ["author"] });
+      let post = await db.Post.findAll({ include: ["author", "comments"] });
       res.send(post);
     } catch (e) {
       res.status(400).send({ error: true, msg: "db insert error", err: e });
@@ -75,7 +75,9 @@ module.exports = {
   },
   fetchPost: async (req, res) => {
     try {
-      let post = await db.Post.findByPk(req.params.id, { include: ["author"] });
+      let post = await db.Post.findByPk(req.params.id, {
+        include: ["author", "comments"],
+      });
       res.send(post);
     } catch (e) {
       res.status(400).send({ error: true, msg: "db insert error", err: e });
